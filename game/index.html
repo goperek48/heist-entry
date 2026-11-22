@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Velvet Vault — a midnight heist</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #171310; height: 100%; }
+  body { display: flex; align-items: center; justify-content: center; }
+  canvas { display: block; width: min(100vw, calc(100vh * 1280 / 720)); height: auto; image-rendering: auto; }
+  #selftest { position: fixed; left: 0; top: 0; color: #0f0; font: 12px monospace; white-space: pre; background: #000; z-index: 9; }
+</style>
+</head>
+<body>
+<canvas id="game" width="1280" height="720"></canvas>
+<pre id="selftest"></pre>
+<script type="module">
+  import { createGame, runSelfTest } from './src/main.js';
+  import { applyShot } from './src/shots.js';
+
+  const params = new URLSearchParams(location.search);
+  const state = createGame(document.getElementById('game'));
+  const shot = params.get('shot');
+  if (shot) applyShot(state, shot);
+  if (params.get('selftest') === '1') runSelfTest();
+</script>
+</body>
+</html>
